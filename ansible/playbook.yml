@@ -1,0 +1,33 @@
+---
+- hosts: bond-dev
+- name: run tasks on all hosts
+  hosts: "*"
+  become: yes
+  vars:               #net$ is a network interface name
+    type: dhcp
+    net1: enp0s8
+    net2: enp0s9
+    #--- Use for static bond ---#
+    #static_ip: 192.168.4.4
+    #netmask: 255.255.255.0
+    #gateway: 192.168.4.1
+    #dns: 192.168.4.1 8.8.8.8
+  tasks:
+    - name: Install Ifsalve
+      apt:
+        name: ifenslave
+        state: latest
+    - name: modprobe
+      command: >-
+        modprobe bonding
+    - name: Bond Template
+      template:
+        src: bond.j2
+        dest: /etc/network/interfaces
+    - name: Bond Module
+      template:
+        src: modules.j2
+        dest: /etc/modules
+    - name: Restart Network Service
+      command: >-
+        systemctl restart networking.service

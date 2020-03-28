@@ -1,0 +1,2 @@
+[bond-dev]
+bond-dev.local ansible_connection=local

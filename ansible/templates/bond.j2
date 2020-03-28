@@ -1,0 +1,30 @@
+# -----------------------------------------------------------------------------#
+# ---------------------------/etc/network/interfaces---------------------------#
+# -----------------------------------------------------------------------------#
+auto {{net1}}
+iface {{net1}} inet manual
+bond-master bond0
+
+auto {{net2}}
+iface {{net2}} inet manual
+bond-master bond0
+
+{% if (type == 'dhcp') %}
+auto bond0
+iface bond0 inet {{type}}
+bond-mode 4
+bond-slaves all
+bond-primary {{net1}} {{net2}}
+{% endif %}
+
+{% if (type == 'static') %}
+auto bond0
+iface bond0 inet static
+address {{static_ip}}
+netmask {{netmask}}
+gateway {{gateway}}
+dns-nameservers {{dns}}
+bond-mode 4
+bond-slaves all
+bond-primary {{net1}} {{net2}}
+{% endif %}
