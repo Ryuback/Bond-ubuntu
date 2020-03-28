@@ -1,4 +1,4 @@
-#Configure Network Bonding
+# Configure Network Bonding
 
  This repository has a virtual machine just to check if the bond is being correctly configured.
 
@@ -17,6 +17,6 @@
 
  This Test was done only on Ubuntu 18.04.
 
-#Skel - Single
+# Skel - Single
  To more information to the skelet of Vagrantfile and your configs:
   https://github.com/frock81/skel-vagrant-single-machine-dev-env
